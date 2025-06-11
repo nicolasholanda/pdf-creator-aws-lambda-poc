@@ -1,0 +1,16 @@
+services:
+  localstack:
+    image: localstack/localstack:latest
+    container_name: localstack
+    ports:
+      - "4566:4566"
+      - "4571:4571"
+    environment:
+      - PERSISTENCE=/tmp/localstack/data
+      - LOCALSTACK_HOST=localstack
+      - DOCKER_HOST=unix:///var/run/docker.sock
+      - CLEAR_TMP_FOLDER=0
+    volumes:
+      - ./localstack-data:/tmp/localstack/data
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./aws-setup.sh:/etc/localstack/init/ready.d/aws-setup.sh
